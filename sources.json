@@ -1,0 +1,10 @@
+[
+  { "tool_name": "Claude", "category": "Text", "url": "https://claude.ai" },
+  { "tool_name": "Midjourney", "category": "Image", "url": "https://www.midjourney.com" },
+  { "tool_name": "Perplexity", "category": "Research", "url": "https://www.perplexity.ai" },
+  { "tool_name": "ElevenLabs", "category": "Voice", "url": "https://elevenlabs.io" },
+  { "tool_name": "Runway", "category": "Video", "url": "https://runwayml.com" },
+  { "tool_name": "Notion AI", "category": "Productivity", "url": "https://www.notion.so/product/ai" },
+  { "tool_name": "Hugging Face", "category": "Models", "url": "https://huggingface.co" },
+  { "tool_name": "OpenAI", "category": "Text", "url": "https://openai.com" }
+]

@@ -1,17 +1,17 @@
 # AI Deals Hunter (Auto Scraper)
 
-A Next.js + Supabase app that auto-scrapes the web daily for AI free trials, free tiers, credits, and promo codes (when available).
+Next.js + Supabase app that scrapes AI websites daily to find:
+- Free trials
+- Free tiers
+- Free credits
+- Student discounts
+- Promo codes (when visible)
 
-## ✅ How it works
-- GitHub Actions runs `scripts/scraper.py` daily
-- Uses Playwright to load JS websites
-- Crawls stable pages like `/pricing`, `/plans`, `/student`, etc.
-- Extracts offers + promo codes
-- Upserts deals into Supabase
-- Frontend fetches deals from Supabase
+## ✅ Setup
 
-## ✅ Required setup
-### Supabase SQL (run once)
+### 1) Supabase SQL
+Run this in Supabase SQL Editor:
+
 ```sql
 create table if not exists deals (
   id uuid default gen_random_uuid() primary key,
