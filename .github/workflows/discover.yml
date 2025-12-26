@@ -1,14 +1,14 @@
-name: Scrape AI Deals (Playwright)
+name: Discover AI Tools
 
 on:
   schedule:
-    - cron: "0 6 * * *"
+    - cron: "0 5 * * *"
   workflow_dispatch:
 
 jobs:
-  scrape:
+  discover:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 8
 
     steps:
       - name: Checkout Repo
@@ -21,16 +21,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install requests playwright
-          playwright install --with-deps chromium
+          pip install requests
 
-      - name: Run scraper (FREE ONLY)
+      - name: Run discovery
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-          MAX_TOOLS_PER_RUN: "10"
-          MAX_PATHS_PER_TOOL: "6"
-          GLOBAL_TIME_BUDGET: "520"
-          NAV_TIMEOUT_MS: "25000"
-          POST_WAIT_MS: "350"
-        run: python scripts/scraper.py
+        run: python scripts/discover_tools.py
