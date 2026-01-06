@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aisubscalp"
+version = "0.1.0"
+description = "Find and track AI app promotions with strict filtering."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+  "requests>=2.32.3",
+  "beautifulsoup4>=4.12.3",
+]
+
+[project.scripts]
+aisubscalp = "aisubscalp.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["aisubscalp*"]
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+select = ["E", "F", "I", "W", "UP", "B"]
+ignore = ["E501"]

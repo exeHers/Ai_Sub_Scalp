@@ -1,0 +1,59 @@
+{
+  "rate_limit_seconds": [1.0, 2.5],
+  "max_results_per_source": 40,
+  "search_queries": [
+    "\"AI tool\" \"free trial\"",
+    "\"AI app\" \"free trial\"",
+    "\"AI\" \"100% off\"",
+    "\"AI promo code\" \"free\"",
+    "\"AI\" \"limited time free\"",
+    "\"AI tool\" \"free credits\"",
+    "\"open source\" \"AI app\"",
+    "\"github\" \"AI\" \"self-hosted\"",
+    "\"free forever\" \"AI\""
+  ],
+  "sources": {
+    "reddit": {
+      "subreddits": [
+        "ArtificialInteligence",
+        "ChatGPT",
+        "AItools",
+        "SideProject",
+        "Productivity",
+        "InternetIsBeautiful"
+      ],
+      "queries": [
+        "free trial",
+        "promo code",
+        "100% off",
+        "limited time free",
+        "open source"
+      ]
+    },
+    "hackernews": {
+      "queries": [
+        "AI free trial",
+        "AI promo code",
+        "open source AI"
+      ]
+    },
+    "producthunt": {
+      "rss_feeds": [
+        "https://www.producthunt.com/topics/artificial-intelligence.rss",
+        "https://www.producthunt.com/topics/productivity.rss"
+      ]
+    },
+    "directories": [
+      "https://theresanaiforthat.com/",
+      "https://www.futurepedia.io/",
+      "https://www.aitoolhunt.com/"
+    ],
+    "github": {
+      "queries": [
+        "open source AI app",
+        "self-hosted AI tool",
+        "LLM app self-hosted"
+      ]
+    }
+  }
+}

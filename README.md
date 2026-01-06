@@ -1,39 +1,108 @@
-# AI Deals Hunter (Auto Scraper)
+# AI Sub Scalp
 
-Next.js + Supabase app that scrapes AI websites daily to find:
-- Free trials
-- Free tiers
-- Free credits
-- Student discounts
-- Promo codes (when visible)
+Production-ready tool that discovers and tracks AI app promotions with strict filters.
 
-## ✅ Setup
+## What It Finds
+- Free trials (any duration)
+- Free credits that enable full access (heuristic-based)
+- 100% discount promo codes
+- Free for limited time
+- Completely free plans
+- Open-source and self-hostable AI apps
 
-### 1) Supabase SQL
-Run this in Supabase SQL Editor:
+## What It Rejects
+- Any discount less than 100%
+- Student-only offers
+- Referral-only free offers
+- Non-AI products
 
-```sql
-create table if not exists deals (
-  id uuid default gen_random_uuid() primary key,
-  tool_name text not null,
-  category text not null,
-  deal_type text not null,
-  deal_value text not null,
-  promo_code text,
-  link text not null,
-  source_url text not null,
-  confidence_score int default 50,
-  status text default 'active',
-  last_seen timestamp with time zone default now(),
-  created_at timestamp with time zone default now()
-);
+## Quick Start
 
-alter table deals enable row level security;
+### 1) Install
+```bash
+python -m venv .venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+pip install -e .
+```
 
-create policy "Public read deals"
-on deals for select
-using (true);
+### 2) Run a Scan
+```bash
+aisubscalp scan
+```
 
-alter table deals
-add constraint deals_unique_key
-unique (tool_name, deal_type, deal_value);
+### 3) Export
+```bash
+aisubscalp export --format json --output outputs/deals.json
+aisubscalp export --format csv --output outputs/deals.csv
+```
+
+### 4) Scheduled Runs
+```bash
+aisubscalp run --scheduled --interval 360
+```
+
+## Configuration
+
+Config files live in `config/`:
+- `config/sources.json` for sources and query templates
+- `config/keywords.json` for verification keywords and categories
+
+You can override the config directory:
+```bash
+aisubscalp --config-dir config scan
+```
+
+## Data Storage
+
+SQLite DB is created at `data/aisubscalp.db` by default. The schema enforces unique
+records by app name + promo type + website URL.
+
+## Output Schema
+
+Each deal is normalized to:
+- app_name
+- website_url
+- promo_type
+- trial_length
+- requirements
+- promo_code
+- source_urls
+- date_found
+- category
+- notes
+- verification_status
+- verification_notes
+
+Examples are in `examples/`.
+
+## Environment Variables
+
+- `GITHUB_TOKEN` (optional) enables GitHub search via API.
+
+## Docker
+```bash
+docker compose up --build
+```
+
+## Development
+```bash
+pip install -r requirements-dev.txt
+pytest
+ruff check aisubscalp tests
+black aisubscalp tests
+```
+
+## CLI Commands
+
+```bash
+aisubscalp scan
+aisubscalp export --format json|csv --output <path>
+aisubscalp run --scheduled --interval <minutes>
+```
+
+## Notes
+
+- Scraping is rate-limited and uses rotating user-agents.
+- Verification is lightweight: HTTP 200 + keyword check.
+- If verification fails, the deal is stored as Unverified.

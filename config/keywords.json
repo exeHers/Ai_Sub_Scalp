@@ -1,0 +1,22 @@
+{
+  "verification_keywords": [
+    "free trial",
+    "100% off",
+    "promo code",
+    "free for limited time",
+    "open source",
+    "self-hosted",
+    "free credits",
+    "free plan",
+    "free tier"
+  ],
+  "categories": {
+    "coding": ["code", "coding", "developer", "repo", "github", "ide"],
+    "writing": ["writing", "writer", "copy", "blog", "content"],
+    "image": ["image", "art", "photo", "visual"],
+    "video": ["video", "film", "motion"],
+    "audio": ["audio", "voice", "speech", "music"],
+    "productivity": ["productivity", "workflow", "task", "notes"],
+    "business": ["business", "sales", "marketing", "crm", "analytics"]
+  }
+}

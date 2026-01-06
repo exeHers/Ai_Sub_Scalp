@@ -1,0 +1,16 @@
+[
+  {
+    "app_name": "Example AI Writer",
+    "website_url": "https://example.ai",
+    "promo_type": "Free Trial",
+    "trial_length": "14 day",
+    "requirements": "Signup required",
+    "promo_code": null,
+    "source_urls": ["https://example.ai/pricing"],
+    "date_found": "2026-01-06T00:00:00+00:00",
+    "category": "writing",
+    "notes": "duckduckgo: Example AI Writer free trial",
+    "verification_status": "Verified",
+    "verification_notes": null
+  }
+]

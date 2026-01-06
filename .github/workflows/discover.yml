@@ -1,4 +1,4 @@
-name: Discover AI Tools
+name: AI Sub Scalp Scan
 
 on:
   schedule:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  discover:
+  scan:
     runs-on: ubuntu-latest
     timeout-minutes: 8
 
@@ -21,10 +21,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install requests
+          pip install -r requirements.txt
+          pip install -e .
 
-      - name: Run discovery
+      - name: Run scan
         env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-        run: python scripts/discover_tools.py
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: aisubscalp scan --export outputs/deals.json --format json

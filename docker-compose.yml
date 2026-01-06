@@ -1,0 +1,10 @@
+services:
+  aisubscalp:
+    build: .
+    environment:
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./outputs:/app/outputs
+    command: ["run", "--scheduled", "--interval", "360"]

@@ -1,4 +1,4 @@
-name: Scrape AI Deals (Playwright)
+name: AI Sub Scalp Scheduled Scan
 
 on:
   schedule:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  scrape:
+  scan:
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -21,16 +21,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install requests playwright
-          playwright install --with-deps chromium
+          pip install -r requirements.txt
+          pip install -e .
 
-      - name: Run scraper (FREE ONLY)
+      - name: Run scan
         env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-          MAX_TOOLS_PER_RUN: "10"
-          MAX_PATHS_PER_TOOL: "6"
-          GLOBAL_TIME_BUDGET: "520"
-          NAV_TIMEOUT_MS: "25000"
-          POST_WAIT_MS: "350"
-        run: python scripts/scraper.py
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: aisubscalp scan --export outputs/deals.json --format json
