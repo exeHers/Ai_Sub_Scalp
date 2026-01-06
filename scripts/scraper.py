@@ -34,12 +34,7 @@ FREE_KEYWORDS = [
     "free tier",
     "free plan",
     "free forever",
-    "free credits",
-    "credits",
     "100% off",
-    "promo code",
-    "student plan",
-    "education plan",
     "free to use"
 ]
 
@@ -85,15 +80,11 @@ def contains_free_signals(text: str) -> bool:
 
 def detect_deal_type(text: str) -> str:
     if "free forever" in text or "free tier" in text or "free plan" in text:
-        return "Free Tier"
+        return "Free Subscription"
     if "free trial" in text or "try for free" in text:
         return "Free Trial"
-    if "free credits" in text or "credits" in text:
-        return "Credits"
     if "100% off" in text:
         return "Promo Code"
-    if "student plan" in text or "education plan" in text:
-        return "Student Free"
     return "Free Deal"
 
 def infer_deal_value(text: str) -> str:
@@ -108,11 +99,9 @@ def infer_deal_value(text: str) -> str:
     if "7-day" in text or "7 day" in text:
         return "7-Day Free Trial"
     if "free tier" in text or "free plan" in text:
-        return "Free Tier Available"
+        return "Free Subscription Available"
     if "free trial" in text:
         return "Free Trial Available"
-    if "free credits" in text:
-        return "Free Credits Available"
     if "100% off" in text:
         return "100% Off Detected"
     return "Free offer detected"
@@ -184,16 +173,19 @@ def extract_deal_from_url(tool, category, target_url, page):
 
     # reject discount-only pages
     if contains_discount(text):
-        # allow if it also clearly has free tier/trial
-        if not ("free trial" in text or "free tier" in text or "free plan" in text or "free forever" in text or "100% off" in text):
-            return []
+        return []
 
     deal_type = detect_deal_type(text)
     deal_value = infer_deal_value(text)
 
     promo_code = None
-    if "promo code" in text or "100% off" in text:
+    if "100% off" in text:
         promo_code = extract_promo_code(raw_text)
+
+    if deal_type not in {"Free Subscription", "Free Trial", "Promo Code"}:
+        return []
+    if deal_type == "Promo Code" and "100% off" not in text:
+        return []
 
     deal = {
         "tool_name": tool,
